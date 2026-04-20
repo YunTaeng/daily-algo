@@ -24,18 +24,11 @@ public class Main {
 	    }
 		for (int i=0;i<N;i++) {
 			if (isPossible(rows,i)){
-					
-				if (isPossible(rows, i)) {
-		            queens[rows] = i;
-		            QueenPlacement(rows + 1);
-		        }
+				queens[rows] = i;
+		        QueenPlacement(rows + 1);
 			}
-				
 		}//for_i
-		
-
 	} // QueenPlacement
-
 	private static boolean isPossible(int rows, int i) {
 	    for (int x = 0; x < rows; x++) {
 	        int y = queens[x];
@@ -45,5 +38,4 @@ public class Main {
 	    }
 	    return true;
 	}
-
 } // class
