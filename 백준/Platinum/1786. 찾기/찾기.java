@@ -1,27 +1,28 @@
 import java.util.*;
 import java.io.*;
 
-public class Main { // KMP법에 의한 문자열 검색
-	public static List<Integer> idxList = new ArrayList<>();
-	public static int K=0;
+class Main { // KMP법에 의한 문자열 검색
+	static List<Integer> idxList = new ArrayList<>();
+	static int K=0;
+	static int[] skip;
 	
-    public static void kmpMatch(String txt, String pat) {
-        int pt = 1;                                // txt를 따라가는 커서
-        int pp = 0;                                // pat를 따라가는 커서
-        int[] skip = new int[pat.length() + 1];    // 건너뛰기 표(skip 테이블)
-
-        // skip 테이블 작성
-        skip[pt] = 0;
+	private static void makeSkip(String pat) {
+    	int pt = 1;
+        int pp = 0; 
+		skip[pt] = 0;
         while (pt != pat.length()) {
-            if (pat.charAt(pt) == pat.charAt(pp))
+            if (pat.charAt(pt) == pat.charAt(pp))//문자가 같으면
                 skip[++pt] = ++pp;
-            else if (pp == 0)
+            else if (pp == 0) //문자가 다른경우 - 맨 처음부터 다름
                 skip[++pt] = pp;
-            else
+            else // 문자가 다른경우 - 몇 개 같다가 중간부터 다른경우
                 pp = skip[pp];
         }
-        // 검색
-        pt = pp = 0;
+	}
+	
+    private static void kmpMatch(String txt, String pat) {
+        int pt = 0;
+        int pp = 0;
         
         while (pt != txt.length()) {
             if (txt.charAt(pt) == pat.charAt(pp)) {
@@ -31,22 +32,24 @@ public class Main { // KMP법에 의한 문자열 검색
                 pt++;
             else
                 pp = skip[pp];
+            
             if (pp == pat.length()) {
                 idxList.add(pt - pp + 1); 
-                pp = skip[pp];//????
+                pp = skip[pp];
             }
         }
     }
 
     public static void main(String[] args) throws IOException{
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//    	StringTokenizer st = new StringTokenizer(br.readLine());
 
-        String s1 = br.readLine();                 // 텍스트용 문자열
-
-        String s2 = br.readLine();                     // 패턴용 문자열
-
-        kmpMatch(s1, s2);    // 문자열 s1에서 문자열 s2를 브루트-포스법으로 검색
+        String s1 = br.readLine(); // 텍스트용
+        String s2 = br.readLine(); // 패턴용
+        
+        skip=new int[s2.length() + 1];
+        
+        makeSkip(s2);
+        kmpMatch(s1, s2); // 문자열 s1에서 문자열 s2를 브루트-포스법으로 검색
 
         System.out.println(idxList.size());
         StringBuilder sb = new StringBuilder();
@@ -57,5 +60,6 @@ public class Main { // KMP법에 의한 문자열 검색
 
         br.close();
     } // main
-
+    
+    
 } // class
