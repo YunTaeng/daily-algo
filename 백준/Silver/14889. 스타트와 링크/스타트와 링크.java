@@ -5,7 +5,8 @@ public class Main {
 	static int N;
 	static int [][] input;
 	static boolean[] selected;
-	static int minDiff;
+	static int minDiff =Integer.MAX_VALUE;
+	
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -22,7 +23,6 @@ public class Main {
         		input[i][j]=Integer.parseInt(st.nextToken());
         	}
         }
-        minDiff = Integer.MAX_VALUE;
         
         combin(0,0);
         System.out.println(minDiff);
@@ -31,7 +31,18 @@ public class Main {
     
     private static void combin (int idx,int count) {
     	if(count>=N/2) {
-    		calcDiff();
+    		int asum=0;
+        	int bsum=0;
+        	for(int i = 0; i < N; i++){
+    			for(int j = i + 1; j < N; j++){ // j = i + 1 -> 중복 피하기
+
+    				if( selected[i] &&  selected[j] ) asum += input[i][j] + input[j][i];
+
+    				if( !selected[i] && !selected[j] ) bsum += input[i][j] + input[j][i];
+
+    			} // for - j
+    		} // for - i
+        	minDiff=Math.min(Math.abs(asum-bsum),minDiff);
     		return;
     	}//if (idx>=N/2) 종료조건
     	
@@ -42,32 +53,6 @@ public class Main {
                 selected[i] = false;
             }
         }
-    }
-    
-    private static void calcDiff() {
-    	int asum=0;
-    	int bsum=0;
-    	List<Integer> teamA = new ArrayList<>();
-    	List<Integer> teamB = new ArrayList<>();
-    	for(int i=0;i<N;i++) {
-    		if (selected[i]) {
-    			teamA.add(i);
-    		}
-    		else {
-    			teamB.add(i);
-    		}
-    	}
     	
-    	for(int i :teamA) {
-    		for(int j :teamA) {
-        		asum+=input[i][j];
-        	}
-    	}
-    	for(int i :teamB) {
-    		for(int j :teamB) {
-        		bsum+=input[i][j];
-        	}
-    	}
-    	minDiff=Math.min(Math.abs(asum-bsum),minDiff);
-    }
+    }//combin
 }//Main
