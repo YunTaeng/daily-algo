@@ -19,6 +19,7 @@ class Main {
         	parent[i]=i;
         }
         
+        
         for (int i=0;i<N;i++) {
         	st = new StringTokenizer(br.readLine());
         	for (int j=0;j<N;j++) {
@@ -34,23 +35,14 @@ class Main {
         	cityPlan[i]=Integer.parseInt(st.nextToken());
         }
         
-        int mainParent=-1;
-        boolean answer = true;
-        for(int i = 0 ; i<M;i++) {
-        	if(i==0) {
-        		mainParent = find(cityPlan[i]-1);
-        	}
-        	else {
-        		int tmpParent = find(cityPlan[i]-1);
-        		if(mainParent!=tmpParent) {
-        			answer=false;
-        		}
-        		
-        	}
+        int root = find(cityPlan[0] - 1);
+        for (int i = 1; i < M; i++) {
+            if (find(cityPlan[i] - 1) != root) {
+                System.out.println("NO");
+                return; // 하나라도 다르면 바로 끝!
+            }
         }
-        
-        if (answer) System.out.println("YES");
-        else System.out.println("NO");
+        System.out.println("YES");
         
         br.close();
     } // main
