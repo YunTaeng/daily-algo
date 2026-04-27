@@ -13,33 +13,25 @@ class Main {
         int M=Integer.parseInt(br.readLine());
         
         parent = new int[N+1];
-        int [][] input=new int[N][N];
         int [] cityPlan = new int[M];
         
         for (int i=0;i<N+1;i++) {
         	parent[i]=i;
         }
         
-        
         for (int i=0;i<N;i++) {
         	st = new StringTokenizer(br.readLine());
         	for (int j=0;j<N;j++) {
-        		input[i][j] = Integer.parseInt(st.nextToken());
+        		int isConnected = Integer.parseInt(st.nextToken());
+                if (isConnected == 1) {
+                    union(i, j);
+                }
         	}
         }
         
         st = new StringTokenizer(br.readLine());
         for(int i = 0 ; i<M;i++) {
         	cityPlan[i]=Integer.parseInt(st.nextToken());
-        }
-        
-        for (int i=0;i<N-1;i++) {
-        	for (int j=i+1;j<N;j++) {
-        		if (input[i][j]==1) {
-        			union(i,j);
-        		}
-        		
-        	}
         }
         
         int mainParent=-1;
