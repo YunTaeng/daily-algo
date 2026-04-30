@@ -12,10 +12,10 @@ class Solution {
     	int rootx = find(x);
     	int rooty = find(y);
     	if (rootx!=rooty) {
-    		return false;
+    		parent[rootx]=rooty;
+        	return true;
     	}
-    	parent[rootx]=rooty;
-    	return true;
+    	return false;
     }
     
     public int solution(int n, int[][] costs) {
