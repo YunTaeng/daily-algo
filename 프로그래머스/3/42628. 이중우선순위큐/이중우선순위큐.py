@@ -14,6 +14,7 @@ def solution(operations):
                 heapq.heapify(heap)
             elif num==-1:
                 heapq.heappop(heap)
+    
     if not heap:
         return [0, 0]
     return [max(heap), heap[0]]
