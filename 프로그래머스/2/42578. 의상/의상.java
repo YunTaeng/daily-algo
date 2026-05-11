@@ -15,9 +15,6 @@ class Solution {
             answer*=(cnt+1);
         }
         
-        
-        
-        
         return answer-1;
     }
 }
