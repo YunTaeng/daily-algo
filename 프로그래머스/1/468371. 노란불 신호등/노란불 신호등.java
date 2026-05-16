@@ -1,7 +1,6 @@
 class Solution {
     public int solution(int[][] signals) {
         int answer = 0;
-        
         while (answer<5000000){
             answer+=1;
             boolean all_yellow = true;
@@ -14,7 +13,6 @@ class Solution {
                     all_yellow = false;
                     break;
                 }
-                
             }
                 
             if (all_yellow){
