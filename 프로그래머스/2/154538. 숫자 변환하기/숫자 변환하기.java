@@ -19,11 +19,12 @@ class Solution {
                 return cur[1];
             }
             
+            if (cur[0] * 3 <= y && !visited[cur[0] * 3]) {
+                
+                 q.add(new int[]{cur[0] * 3, cur[1] + 1});
+            }
             if (cur[0] * 2 <= y && !visited[cur[0] * 2]) {
                 q.add(new int[]{cur[0] * 2, cur[1] + 1});
-            }
-            if (cur[0] * 3 <= y && !visited[cur[0] * 3]) {
-                q.add(new int[]{cur[0] * 3, cur[1] + 1});
             }
             if (cur[0] + n <= y && !visited[cur[0] + n]) {
                 q.add(new int[]{cur[0] + n, cur[1] + 1});
